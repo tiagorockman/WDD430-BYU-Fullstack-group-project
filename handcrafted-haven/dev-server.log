@@ -1,0 +1,13 @@
+
+> handcrafted-haven@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.34:3000
+✓ Ready in 556ms
+Creating turbopack project {
+  dir: 'C:\\Users\\tiago\\Documents\\Projetos\\BYU PROJECTS\\WDD430-BYU-Fullstack-group-project\\handcrafted-haven',
+  testMode: true
+}
+
