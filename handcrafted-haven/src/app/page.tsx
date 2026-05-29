@@ -64,43 +64,6 @@ export default function Home() {
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[42rem] bg-[radial-gradient(circle_at_top_right,_rgba(201,129,58,0.28),_transparent_32%),radial-gradient(circle_at_left,_rgba(74,124,89,0.18),_transparent_30%)]"
       />
 
-      <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
-        <a href="#top" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#3b2314] text-sm font-semibold uppercase tracking-[0.28em] text-[#fdf8f3]">
-            HH
-          </div>
-          <div>
-            <p className="font-display text-lg font-semibold text-[#3b2314]">
-              Handcrafted Haven
-            </p>
-            <p className="text-sm text-[#7a5a45]">
-              Handmade goods, artisan stories
-            </p>
-          </div>
-        </a>
-
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-7 text-sm font-medium text-[#5b4334] md:flex"
-        >
-          <a href="#marketplace" className="transition hover:text-[#7a4019]">
-            Marketplace
-          </a>
-          <a href="#makers" className="transition hover:text-[#7a4019]">
-            Makers
-          </a>
-          <a href="#featured" className="transition hover:text-[#7a4019]">
-            Featured
-          </a>
-          <a
-            href="#join"
-            className="rounded-full border border-[#b88b63] px-4 py-2 text-[#3b2314] transition hover:bg-[#f3dec1]"
-          >
-            Become a seller
-          </a>
-        </nav>
-      </header>
-
       <main id="top">
         <section className="mx-auto grid w-full max-w-7xl gap-14 px-6 pb-16 pt-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] lg:px-10 lg:pb-24 lg:pt-14">
           <div className="max-w-2xl">
@@ -240,15 +203,157 @@ export default function Home() {
           </div>
         </section>
 
-        
-      </main>
+        <section
+          id="marketplace"
+          className="border-y border-[#ead9c7] bg-[#fffaf5]/90 backdrop-blur-sm"
+        >
+          <div className="mx-auto grid w-full max-w-7xl gap-8 px-6 py-14 lg:grid-cols-[0.95fr_1.05fr] lg:px-10">
+            <div className="max-w-xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#7a4019]">
+                Why it feels different
+              </p>
+              <h2 className="mt-4 font-display text-4xl font-semibold text-[#3b2314]">
+                A warmer marketplace built around makers, not just products.
+              </h2>
+            </div>
 
-      <footer className="border-t border-[#ead9c7] bg-[#fffaf5]/75">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-6 text-sm text-[#7a5a45] sm:flex-row sm:items-center sm:justify-between lg:px-10">
-          <p>Handcrafted Haven is a marketplace concept for independent artisans and thoughtful shoppers.</p>
-          <p>Built for WDD430 with accessibility, responsive design, and seller-first flows in mind.</p>
-        </div>
-      </footer>
+            <div className="grid gap-4 md:grid-cols-3">
+              {marketplaceHighlights.map((item) => (
+                <article
+                  key={item.title}
+                  className="rounded-[1.6rem] border border-[#e7d3be] bg-white p-6 shadow-[0_12px_30px_rgba(59,35,20,0.05)]"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f3dec1] text-sm font-semibold text-[#7a4019]">
+                    {item.title.slice(0, 1)}
+                  </div>
+                  <h3 className="mt-5 font-display text-2xl font-semibold text-[#3b2314]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-[#604837]">
+                    {item.description}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="featured"
+          className="mx-auto w-full max-w-7xl px-6 py-16 lg:px-10 lg:py-24"
+        >
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#7a4019]">
+                Featured this week
+              </p>
+              <h2 className="mt-4 font-display text-4xl font-semibold text-[#3b2314]">
+                Crafted objects that feel personal before they even arrive.
+              </h2>
+            </div>
+            <p className="max-w-xl text-base leading-7 text-[#604837]">
+              The landing page introduces the future catalog with rich previews,
+              clear pricing, and enough texture to hint at the full shopping
+              experience without overwhelming first-time visitors.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_0.88fr]">
+            <div className="grid gap-6 md:grid-cols-3">
+              {sampleProducts.map((product) => (
+                <article
+                  key={product.name}
+                  className="overflow-hidden rounded-[1.8rem] border border-[#ead9c7] bg-white shadow-[0_18px_45px_rgba(59,35,20,0.08)]"
+                >
+                  <div className={`h-52 bg-gradient-to-br ${product.tone}`} />
+                  <div className="p-6">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a4019]">
+                      {product.maker}
+                    </p>
+                    <h3 className="mt-3 font-display text-2xl font-semibold text-[#3b2314]">
+                      {product.name}
+                    </h3>
+                    <div className="mt-5 flex items-center justify-between">
+                      <span className="text-base text-[#604837]">Small-batch release</span>
+                      <span className="text-lg font-semibold text-[#3b2314]">
+                        {product.price}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <aside
+              id="makers"
+              className="rounded-[2rem] bg-[#4a7c59] p-8 text-[#f7f1e8] shadow-[0_26px_60px_rgba(74,124,89,0.25)]"
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#dfeadf]">
+                For artisans
+              </p>
+              <h2 className="mt-4 max-w-sm font-display text-4xl font-semibold">
+                Your work deserves a storefront with character.
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-7 text-[#eef5ef]">
+                Seller tools will make it easy to publish listings, tell your
+                story, upload photos, and manage inventory from one protected
+                dashboard.
+              </p>
+
+              <ul className="mt-8 space-y-4 text-sm leading-7 text-[#f2f8f3]">
+                <li className="rounded-[1.2rem] border border-white/15 bg-white/10 px-4 py-3">
+                  Listing form with category, pricing, quantity, and images
+                </li>
+                <li className="rounded-[1.2rem] border border-white/15 bg-white/10 px-4 py-3">
+                  Seller profile with bio, location, and product collection
+                </li>
+                <li className="rounded-[1.2rem] border border-white/15 bg-white/10 px-4 py-3">
+                  Dashboard controls for editing, deleting, and tracking reviews
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+
+        <section
+          id="join"
+          className="mx-auto w-full max-w-7xl px-6 pb-20 lg:px-10 lg:pb-24"
+        >
+          <div className="overflow-hidden rounded-[2.4rem] border border-[#d9b794] bg-[#3b2314] px-7 py-10 text-[#fdf8f3] shadow-[0_28px_80px_rgba(59,35,20,0.24)] sm:px-10 sm:py-12">
+            <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div className="max-w-2xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#e8c99a]">
+                  Next step
+                </p>
+                <h2 className="mt-4 font-display text-4xl font-semibold">
+                  The first sprint starts with a homepage that sells the vision.
+                </h2>
+                <p className="mt-5 text-base leading-7 text-[#f4e7d9]">
+                  This landing page gives your team a strong visual direction for
+                  the rest of the build: warm artisan branding, clear buyer and
+                  seller pathways, and reusable card patterns for the catalog and
+                  profile flows.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row lg:flex-col">
+                <a
+                  href="#top"
+                  className="inline-flex items-center justify-center rounded-full bg-[#c9813a] px-6 py-3.5 text-sm font-semibold text-[#3b2314] transition hover:bg-[#d79852]"
+                >
+                  Review the homepage
+                </a>
+                <a
+                  href="#marketplace"
+                  className="inline-flex items-center justify-center rounded-full border border-[#e1c7af] px-6 py-3.5 text-sm font-semibold text-[#fdf8f3] transition hover:bg-white/10"
+                >
+                  Plan the next section
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
