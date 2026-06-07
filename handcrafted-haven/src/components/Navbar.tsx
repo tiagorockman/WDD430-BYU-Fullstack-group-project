@@ -3,8 +3,13 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { logout } from '@/app/actions/auth'
 
-export default function Navbar() {
+type NavbarProps = {
+  isLoggedIn: boolean
+}
+
+export default function Navbar({ isLoggedIn }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
@@ -48,6 +53,23 @@ export default function Navbar() {
           >
             Become a seller
           </Link>
+          {isLoggedIn ? (
+            <form action={logout}>
+              <button
+                type="submit"
+                className="rounded-full bg-[#3b2314] px-4 py-2 text-[#fdf8f3] transition hover:bg-[#5d2f13]"
+              >
+                Sign out
+              </button>
+            </form>
+          ) : (
+            <Link
+              href="/login"
+              className="rounded-full bg-[#3b2314] px-4 py-2 text-[#fdf8f3] transition hover:bg-[#5d2f13]"
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
 
         <button
@@ -96,6 +118,26 @@ export default function Navbar() {
               >
                 Become a seller
               </Link>
+            </li>
+            <li className="mt-2">
+              {isLoggedIn ? (
+                <form action={logout}>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[#3b2314] px-4 py-3 text-center text-[#fdf8f3] transition hover:bg-[#5d2f13]"
+                  >
+                    Sign out
+                  </button>
+                </form>
+              ) : (
+                <Link
+                  href="/login"
+                  className="block rounded-full bg-[#3b2314] px-4 py-3 text-center text-[#fdf8f3] transition hover:bg-[#5d2f13]"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Sign in
+                </Link>
+              )}
             </li>
           </ul>
         </nav>
