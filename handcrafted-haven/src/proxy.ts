@@ -12,7 +12,7 @@ function isValidSession(token: string): boolean {
   return sig === expected
 }
 
-const protectedPaths = ['/products/new']
+const protectedPaths = ['/products/new', '/dashboard']
 
 export default async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname
