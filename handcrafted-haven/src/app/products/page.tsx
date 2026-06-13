@@ -1,28 +1,6 @@
 import Link from 'next/link'
 import { getSessionProducts } from '@/app/lib/session'
-
-type Product = {
-  id: number
-  name: string
-  maker: string
-  price: number
-  category: string
-  description: string
-  tone: string
-  rating: number
-  reviews: number
-}
-
-const products: Product[] = [
-  { id: 1, name: 'Walnut Pour-Over Set', maker: 'North Pine Studio', price: 64, category: 'Woodcraft', description: 'Carved stand, stoneware dripper, and hand-thrown mug.', tone: 'from-[#5b3521] to-[#c9813a]', rating: 4.9, reviews: 24 },
-  { id: 2, name: 'Sage Loom Throw', maker: 'Thread & Hearth', price: 92, category: 'Textiles', description: 'Hand-woven with organic sage-dyed wool, generously sized.', tone: 'from-[#4a7c59] to-[#e8c99a]', rating: 4.8, reviews: 18 },
-  { id: 3, name: 'Amber Clay Vase', maker: 'Mesa House', price: 48, category: 'Ceramics', description: 'Wheel-thrown stoneware with a natural amber glaze.', tone: 'from-[#7a4019] to-[#f3dec1]', rating: 4.7, reviews: 31 },
-  { id: 4, name: 'Copper Ring Set', maker: 'Forge & Bloom', price: 36, category: 'Jewelry', description: 'Hand-forged copper rings with natural textures.', tone: 'from-[#b8722e] to-[#e8c99a]', rating: 4.9, reviews: 42 },
-  { id: 5, name: 'Linen Table Runner', maker: 'Thread & Hearth', price: 55, category: 'Textiles', description: 'Natural linen with hand-stitched border details.', tone: 'from-[#8d7c6b] to-[#f3dec1]', rating: 4.6, reviews: 15 },
-  { id: 6, name: 'Cedar Serving Board', maker: 'North Pine Studio', price: 78, category: 'Woodcraft', description: 'Live-edge cedar board with hand-applied oil finish.', tone: 'from-[#5d3520] to-[#c9813a]', rating: 4.8, reviews: 27 },
-  { id: 7, name: 'Ocean Blue Mug', maker: 'Mesa House', price: 32, category: 'Ceramics', description: 'Wheel-thrown mug with a deep ocean-blue glaze.', tone: 'from-[#2b4c7e] to-[#7ab4d4]', rating: 4.7, reviews: 53 },
-  { id: 8, name: 'Gold Leaf Earrings', maker: 'Forge & Bloom', price: 45, category: 'Jewelry', description: 'Sterling silver with hammered gold-leaf accents.', tone: 'from-[#c9813a] to-[#f3dec1]', rating: 5.0, reviews: 19 },
-]
+import { products } from '@/app/lib/data'
 
 const categories = ['All', 'Ceramics', 'Textiles', 'Woodcraft', 'Jewelry']
 
@@ -95,7 +73,7 @@ export default async function ProductsPage({
             <div className="p-5">
               <div className="flex items-start justify-between gap-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a4019]">
-                  {product.maker}
+                  {product.sellerName}
                 </p>
                 <span className="shrink-0 rounded-full bg-[#f3dec1] px-2.5 py-0.5 text-xs font-medium text-[#7a4019]">
                   {product.category}
