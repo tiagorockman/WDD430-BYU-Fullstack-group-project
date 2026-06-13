@@ -1,31 +1,9 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { createProduct } from '@/app/actions/products'
 
 const categories = ['Ceramics', 'Textiles', 'Woodcraft', 'Jewelry', 'Other']
 
 export default function NewProductPage() {
-  async function createProduct(formData: FormData) {
-    'use server'
-
-    const data = {
-      name: formData.get('name') as string,
-      category: formData.get('category') as string,
-      description: formData.get('description') as string,
-      price: formData.get('price') as string,
-      quantity: formData.get('quantity') as string,
-      imageUrl: formData.get('imageUrl') as string,
-    }
-
-    if (!data.name || !data.category || !data.price) {
-      return
-    }
-
-    // TODO: persist to database
-    console.log('New product listing:', data)
-
-    redirect('/products?listed=true')
-  }
-
   return (
     <div className="mx-auto w-full max-w-3xl px-6 py-10 lg:px-10">
       <Link

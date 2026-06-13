@@ -54,14 +54,22 @@ export default function Navbar({ isLoggedIn }: NavbarProps) {
             Become a seller
           </Link>
           {isLoggedIn ? (
-            <form action={logout}>
-              <button
-                type="submit"
-                className="rounded-full bg-[#3b2314] px-4 py-2 text-[#fdf8f3] transition hover:bg-[#5d2f13]"
+            <>
+              <Link
+                href="/dashboard"
+                className={`transition hover:text-[#7a4019] ${pathname === '/dashboard' ? 'font-semibold text-[#7a4019]' : ''}`}
               >
-                Sign out
-              </button>
-            </form>
+                Dashboard
+              </Link>
+              <form action={logout}>
+                <button
+                  type="submit"
+                  className="rounded-full bg-[#3b2314] px-4 py-2 text-[#fdf8f3] transition hover:bg-[#5d2f13]"
+                >
+                  Sign out
+                </button>
+              </form>
+            </>
           ) : (
             <Link
               href="/login"
@@ -119,6 +127,17 @@ export default function Navbar({ isLoggedIn }: NavbarProps) {
                 Become a seller
               </Link>
             </li>
+            {isLoggedIn && (
+              <li className="mt-2">
+                <Link
+                  href="/dashboard"
+                  className="block rounded-xl px-4 py-3 transition hover:bg-[#f3dec1] hover:text-[#7a4019]"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              </li>
+            )}
             <li className="mt-2">
               {isLoggedIn ? (
                 <form action={logout}>

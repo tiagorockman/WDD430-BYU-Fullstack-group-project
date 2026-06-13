@@ -1,6 +1,7 @@
 import 'server-only'
 import { createHmac } from 'crypto'
 import { cookies } from 'next/headers'
+import type { Product } from './data'
 
 const SECRET = process.env.SESSION_SECRET ?? 'handcrafted-haven-dev-secret'
 
@@ -42,4 +43,39 @@ export async function getSession(): Promise<{ userId: string } | null> {
 export async function deleteSession() {
   const cookieStore = await cookies()
   cookieStore.delete('session')
+}
+
+const PRODUCT_COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax' as const,
+  path: '/',
+  maxAge: 7 * 24 * 60 * 60,
+}
+
+export async function getSessionProducts(): Promise<Product[]> {
+  const cookieStore = await cookies()
+  const raw = cookieStore.get('user_products')?.value
+  if (!raw) return []
+  try {
+    return JSON.parse(raw) as Product[]
+  } catch {
+    return []
+  }
+}
+
+export async function addSessionProduct(product: Product): Promise<void> {
+  const existing = await getSessionProducts()
+  const cookieStore = await cookies()
+  cookieStore.set('user_products', JSON.stringify([...existing, product]), PRODUCT_COOKIE_OPTIONS)
+}
+
+export async function removeSessionProduct(id: string): Promise<void> {
+  const existing = await getSessionProducts()
+  const cookieStore = await cookies()
+  cookieStore.set(
+    'user_products',
+    JSON.stringify(existing.filter((p) => p.id !== id)),
+    PRODUCT_COOKIE_OPTIONS,
+  )
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getSessionProducts } from '@/app/lib/session'
 
 type Product = {
   id: number
@@ -32,10 +33,13 @@ export default async function ProductsPage({
 }) {
   const { category: activeCategory = 'All', listed } = await searchParams
 
+  const sessionProducts = await getSessionProducts()
+  const allProducts = [...products, ...sessionProducts]
+
   const filtered =
     activeCategory === 'All'
-      ? products
-      : products.filter((p) => p.category === activeCategory)
+      ? allProducts
+      : allProducts.filter((p) => p.category === activeCategory)
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-10">

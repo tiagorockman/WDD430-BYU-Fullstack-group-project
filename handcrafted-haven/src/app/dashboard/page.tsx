@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { getSession } from '@/app/lib/session'
+import { getSession, getSessionProducts } from '@/app/lib/session'
 import {
   getSellerByUserId,
   getProductsBySeller,
@@ -19,8 +19,19 @@ export default async function DashboardPage({
   const { deleted, listed } = await searchParams
 
   const seller = getSellerByUserId(session.userId)
-  const sellerProducts = seller ? getProductsBySeller(seller.id) : []
+  const sessionProducts = await getSessionProducts()
+  const sessionSellerProducts = sessionProducts.filter(
+    (p) => p.sellerId === (seller?.id ?? session.userId),
+  )
+  const sellerProducts = [
+    ...(seller ? getProductsBySeller(seller.id) : []),
+    ...sessionSellerProducts,
+  ]
   const stats = seller ? getSellerStats(seller.id) : { productCount: 0, totalReviews: 0, avgRating: 0 }
+  const adjustedStats = {
+    ...stats,
+    productCount: stats.productCount + sessionSellerProducts.length,
+  }
 
   const totalRevenue = sellerProducts.reduce((sum, p) => sum + p.price * p.quantity, 0)
 
@@ -70,9 +81,9 @@ export default async function DashboardPage({
 
       {/* Stats cards */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Active listings" value={String(stats.productCount)} />
-        <StatCard label="Avg rating" value={stats.avgRating > 0 ? `${stats.avgRating} ★` : '—'} />
-        <StatCard label="Total reviews" value={String(stats.totalReviews)} />
+        <StatCard label="Active listings" value={String(adjustedStats.productCount)} />
+        <StatCard label="Avg rating" value={adjustedStats.avgRating > 0 ? `${adjustedStats.avgRating} ★` : '—'} />
+        <StatCard label="Total reviews" value={String(adjustedStats.totalReviews)} />
         <StatCard label="Potential revenue" value={totalRevenue > 0 ? `$${totalRevenue.toLocaleString()}` : '$0'} />
       </div>
 
